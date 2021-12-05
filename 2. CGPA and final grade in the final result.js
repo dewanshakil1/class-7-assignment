@@ -65,100 +65,125 @@ const student=[
 
 }
 ]; 
-function StudentResult() {
-    //           gpa function
-    this.gpa = function (marks) {
-      
-      if (marks >= 0 && marks <= 32) {
-       return gpa = 0
-      } else if (marks >= 33 && marks < 40) {
-         return gpa = 1
-      } else if (marks >= 40 && marks < 50) {
-         return gpa = 2
-      } else if (marks >= 50 && marks < 60) {
-        return gpa = 3
-      } else if (marks >= 60 && marks < 70) {
-          return gpa = 3.5
-      } else if (marks >= 70 && marks < 80) {
-        return gpa = 4
-      } else if (marks >= 80 && marks < 100) {
-         return gpa = 5
-      }
-      
-    };
-          
-    this.grade =function (marks){
-    
-      if (marks >= 0 && marks <= 32) {
-       grade = "F"
-      } else if (marks >= 33 && marks < 40) {
-        grade = "B"
-      } else if (marks >= 40 && marks < 50) {
-        return (grade = "C");
-      } else if (marks >= 50 && marks < 60) {
-       grade = "D"
-      } else if (marks >= 60 && marks < 70) {
-        grade = "A-"
-      } else if (marks >= 70 && marks < 80) {
-       grade = "A"
-      } else if (marks >= 80 && marks < 100) {
-        grade = "A+"
-      }
-      return grade;
-     
-    };
-    /***
-     * total 
-     */
-  
-    
-    //   
-  
-    this.totalGrade =function (cgpa){
-    
-      if ( cgpa<1  ) {
-       return "F"
-      } else if (cgpa >=1 && cgpa <2) {
-      return "B"
-      } else if (cgpa >=2 && cgpa<3) {
-       return"C";
-      } else if (cgpa >=3 && cgpa < 3.5) {
-        return "D"
-      } else if (cgpa >= 3.5 &&  cgpa < 4) {
-       return "A-"
-      } else if (cgpa>= 4 &&cgpa<5 ) {
-       return  "A"
-      } else if (cgpa >=5 ) {
-         return "A+"
-      }
-      
-     
-    };
-    
-    /*****
-     * CGPA function
-     */
-       this.cgpaa= function( ban,en,mat,ss,s,rel){
-        
-        
-    
-      if(result. ban==0 || result. en==0 ||result. mat==0 ||result. ss==0 || result. s==0 || result. rel==0){
-        return `you are faided`
-      }
-      else{
-        return `your cgpa ${gpa} ${result.totalGrade(gpa)} `;
-  
-      }
-      }
-    
-    
-  }
-  let result = new StudentResult();
-student.result. map((data)=>{
-    console.log(data.ban)
+function Result(){
 
-})
+
+  this.result = function (marks){
+
+      let gpa;
+      let grade;
+
+      if( marks >= 0 && marks < 33 ){
+          gpa     = 0;
+          grade   = 'F';
+      }else if( marks >= 33 && marks < 40 ){
+          gpa     = 1;
+          grade   = 'D';
+      }else if( marks >= 40 && marks < 50 ){
+          gpa     = 2;
+          grade   = 'C';
+      }else if( marks >= 50 && marks < 60 ){
+          gpa     = 3;
+          grade   = 'B';
+      }else if( marks >= 60 && marks < 70 ){
+          gpa     = 3.5;
+          grade   = 'A-';
+      }else if( marks >= 70 && marks < 80 ){
+          gpa     = 4;
+          grade   = 'A';
+      }else if( marks >= 80 && marks <= 100 ){
+          gpa     = 5;
+          grade   = 'A+';
+      }else {
+          gpa     = 'Invalid';
+          grade   = 'Invalid';
+      }
+
+
+     return {
+         gpa    : gpa,
+         grade     : grade
+     }   
+
+    }
+
+
+    this.finalResult = function(bn, en, math, s, ss, rel){
+
+        let cgpa;
+        let finalGrade;
+      
+        let totalGpa = this.result(bn).gpa + this.result(en).gpa + this.result(math).gpa + this.result(s).gpa + this.result(ss).gpa + this.result(rel).gpa;
+      
+        cgpa =  totalGpa / 6;
+      
+        if( bn < 33 || en < 33 || math < 33 || s < 33 || ss < 33 || rel < 33 ){
+            finalGrade = 'F';
+        }else if( cgpa >= 0 && cgpa < 1 ){
+            finalGrade = 'F';
+        }else if( cgpa >= 1 && cgpa < 2 ){
+            finalGrade = 'D';
+        }else if( cgpa >= 2 && cgpa < 3 ){
+            finalGrade = 'C';
+        }else if( cgpa >= 3 && cgpa < 3.5 ){
+            finalGrade = 'B';
+        }else if( cgpa >= 3.5 && cgpa < 4 ){
+            finalGrade = 'A-';
+        }else if( cgpa >= 4 && cgpa < 5 ){
+            finalGrade = 'A';
+        }else if( cgpa == 5 ){
+            finalGrade = 'A+';
+        }
+      
+      
+        return {
+            finalCgpa   :  (finalGrade == 'F') ? 'Failed' :  cgpa.toFixed(2),
+            finalresult : finalGrade
+        }
+      
+      
+      
+      }
+      
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+res=new Result();
+student.map((data)=>{
+ console.log(`
+ rol         : ${ data.roll }
+ Name        : ${ data.name }
+ Age         : ${ data.age }
+ father Name:${data.fname}
+ 
+ Subject     Marks               GPA                             GRADE    
+ Bangla      ${ data.bn }     ${res.result(data.bn).gpa}  ${res.result(data.bn).grade}
+ English     ${ data.en }      ${res.result(data.en).gpa}   ${res.result(data.en).grade}
+ Math        ${ data.mat }     ${res.result(data.mat).gpa}   ${res.result(data.mat).grade}
+ Science     ${ data.s }      ${res.result(data.s).gpa}     ${res.result(data.s).grade}
+ S S         ${ data.ss }     ${res.result(data.ss).gpa}     ${res.result(data.ss).grade} 
+ Religion    ${ data.rel }     ${res.result(data.rel).gpa}     ${res.result(data.rel).grade} 
+ ------------------------------------------------------------
+ tolat cgpa is :${res.finalResult(data.bn,data.en,data.mat,data.s,data.ss,data.rel).finalCgpa} and final result:${res.finalResult(data.bn,data.en,data.mat,data.s,data.ss,data.rel).finalresult} 
+    
+ `);
+
+});
+
+
 
 
  
  
+
+
