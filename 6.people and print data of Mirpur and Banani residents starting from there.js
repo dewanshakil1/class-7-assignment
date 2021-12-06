@@ -301,13 +301,14 @@ const student=[
     }
 
 ];
-student.map((data)=>{
+/** */
+student.map(( data)=>{
    if(data.loc=="mirpur" || data.loc=="bonani" ){
       console.log(`
       roll: ${data.roll}
       name: ${data.name}
       age: ${data.age}
-      location: ${data.loc}
+      location: ${(data.loc).sort()}
       `)
    }
   

@@ -61,17 +61,31 @@ const lfwf=[
    }
 
 ];
-lfwf.map((data)=>{
-   if(data.age > 18 ){
-       console.log("welcome..")
-   }
-   else if(data.age > 40 ){
-    console.log("welcome,,boss,,apnar jonnoi bose asi")
-}
-else if(data.age < 18 ){
-    console.log("tumar boyos hoy nai ,,")
-}
 
+  let ages=function(age){
+    if(age >= 18 && age<=40 ){
+        return "welcome apnake ai khan a ashar jonno";        
+    }
+    else if(age > 40){
+        return "welcome boss, apnake ai khan a ashar jonno ,,apnar jonnoi opetha kor te si";        
+    }
+    else if(age < 18 ){
+        return "tumi bacha ,,tumar voyos hoy nai"
+    }
+ }
+ 
 
-
+ lfwf.map((data)=>{  
+     console.log(`
+     name:${data.name}
+     age:${data.age}
+     loction:${data.location}
+     member:${data.mem}
+     mes:${data.name} ${ages(data.age)}
+     `)       
+    
 })
+
+
+
+
